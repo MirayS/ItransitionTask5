@@ -1,3 +1,4 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -7,6 +8,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using TicTacToeGame.Context;
+using TicTacToeGame.Hubs;
+using TicTacToeGame.Models;
+using TicTacToeGame.Services;
 
 namespace TicTacToeGame
 {
@@ -28,6 +32,15 @@ namespace TicTacToeGame
             services.AddControllersWithViews();
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/dist"; });
+            services.AddSignalR();
+            var mappingConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new MapperProfile());
+            });
+
+            var mapper = mappingConfig.CreateMapper();
+            services.AddSingleton(mapper);
+            services.AddSingleton<GameService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -55,6 +68,8 @@ namespace TicTacToeGame
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHub<GameCoordinatorHub>("/gameHub");
+
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller}/{action=Index}/{id?}");
@@ -72,6 +87,8 @@ namespace TicTacToeGame
                     spa.UseAngularCliServer(npmScript: "start");
                 }
             });
+            
+            
         }
     }
 }

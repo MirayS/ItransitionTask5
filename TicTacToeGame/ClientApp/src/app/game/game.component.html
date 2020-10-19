@@ -1,0 +1,26 @@
+<div class="row">
+  <div class="card col-md-6 offset-md-3 col-12">
+    <div class="card-body align-content-center text-center">
+      <h5 class="card-title" *ngIf="!gameService.nowInRoom.isStarted">Waiting for an opponent</h5>
+      <h5 class="card-title" *ngIf="gameService.nowInRoom.isFinished">This game is ended</h5>
+      <h5 class="card-title" *ngIf="gameService.nowInRoom.isStarted && !gameService.nowInRoom.isFinished">{{ this.gameService.nowInRoom.isFirstPlayerStep == this.gameService.isFirstPlayer ? "Your step" : "Your opponent step" }}</h5>
+      <table class="table table-bordered"  *ngIf="gameService.nowInRoom.isStarted && !gameService.nowInRoom.isFinished">
+        <tr *ngFor="let row of this.gameService.nowInRoom.playingField; let rowIndex = index">
+          <td *ngFor="let column of row; let columnIndex = index">
+            <button (click)="makeStep(rowIndex,columnIndex)" [disabled]="!isEnabled(column)" class="btn btn-outline-primary">
+              <i *ngIf="column" class="material-icons">{{ column == 1 ? "close" : "radio_button_unchecked" }}</i>
+              <i *ngIf="!column" class="material-icons text-white">{{ gameService.isFirstPlayer ? "close" : "radio_button_unchecked" }}</i>
+            </button>
+          </td>
+        </tr>
+      </table>
+      <div class="card-text" *ngIf="gameService.nowInRoom.isFinished">
+        <span *ngIf="gameService.nowInRoom.isFirstPlayerWin == null">It's a draw!</span>
+        <span *ngIf="gameService.nowInRoom.isFirstPlayerWin != null && gameService.nowInRoom.isFirstPlayerWin == gameService.isFirstPlayer">You win!</span>
+        <span *ngIf="gameService.nowInRoom.isFirstPlayerWin != null && gameService.nowInRoom.isFirstPlayerWin != gameService.isFirstPlayer">You lose!</span>
+        <br>
+        <button class="btn btn-primary" (click)="leave()">Leave from this game!</button>
+      </div>
+    </div>
+  </div>
+</div>
