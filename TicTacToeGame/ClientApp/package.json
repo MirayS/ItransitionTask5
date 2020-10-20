@@ -26,11 +26,11 @@
     "aspnet-prerendering": "^3.0.1",
     "bootstrap": "^4.5.3",
     "core-js": "^3.6.5",
-    "jquery": "3.4.1",
+    "jquery": "^3.5.1",
     "oidc-client": "^1.9.1",
     "popper.js": "^1.16.0",
     "rxjs": "^6.6.3",
-    "tslib": "^1.10.0",
+    "tslib": "^1.14.1",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {
@@ -40,7 +40,7 @@
     "@angular/language-service": "^9.1.12",
     "@types/jasmine": "~3.4.4",
     "@types/jasminewd2": "~2.0.8",
-    "@types/node": "^12.11.1",
+    "@types/node": "^12.12.69",
     "codelyzer": "^5.1.2",
     "jasmine-core": "~3.5.0",
     "jasmine-spec-reporter": "~4.2.1",
