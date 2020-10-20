@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
@@ -11,6 +11,8 @@ import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { RoomsComponent } from './rooms/rooms.component';
 import { GameComponent } from './game/game.component';
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+
 
 @NgModule({
   declarations: [
@@ -20,9 +22,11 @@ import { GameComponent } from './game/game.component';
     CounterComponent,
     FetchDataComponent,
     RoomsComponent,
-    GameComponent
+    GameComponent,
   ],
   imports: [
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
@@ -31,7 +35,8 @@ import { GameComponent } from './game/game.component';
       { path: 'game/:id', component: GameComponent },
     ])
   ],
-  providers: [],
+  providers: [
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

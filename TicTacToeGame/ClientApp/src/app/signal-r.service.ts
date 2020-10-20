@@ -1,5 +1,5 @@
 import {EventEmitter, Injectable} from '@angular/core';
-import {HubConnection, HubConnectionBuilder} from "@aspnet/signalr";
+import {HubConnection, HubConnectionBuilder, HubConnectionState} from "@aspnet/signalr";
 import {RoomDto} from "../dto/signalrDtos";
 
 @Injectable({
@@ -11,6 +11,7 @@ export class SignalRService {
   public nowInRoom: RoomDto
   public isFirstPlayer: boolean
   public connectionId: string
+  public isConnected: boolean
 
 
   public goToRoomEvent: EventEmitter<string> = new EventEmitter<string>()
@@ -34,9 +35,7 @@ export class SignalRService {
         console.log("Connected")
         this.registerSignalEvents()
         this.hubConnection.send("GetConnectionId")
-          .then(function(connectionId){console.log(connectionId)})
-
-
+        this.isConnected = this.hubConnection.state == HubConnectionState.Connected
       })
       .catch(err => {
         console.log("Connection error: " + err)

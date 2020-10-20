@@ -1,11 +1,30 @@
-<div class="row pb-2">
-  <button class="btn btn-primary" (click)="createRoom()">Create room</button>
-</div>
-<div class="row">
-  <div class="card col-md-4 col-sm-12" *ngFor="let room of gameService.rooms">
-    <div class="card-body">
-      <h5 class="card-title">{{room.name}}</h5>
-      <button class="btn btn-primary" (click)="connectToRoom(room.id)">Connect</button>
+<div *ngIf="gameService.isConnected">
+  <div class="row pb-2">
+    <div class="card col-12">
+      <div class="card-body">
+        <h5 class="card-title">Create room</h5>
+        <div class="form-group">
+          <label>Room name</label>
+          <input class="form-control" [(ngModel)]="roomName">
+        </div>
+        <div class="form-group">
+          <div>
+          </div>
+        </div>
+        <button class="btn btn-primary" (click)="createRoom()" [disabled]="!roomName.trim().length">Create</button>
+
+      </div>
     </div>
   </div>
+  <div class="row">
+    <div class="card col-md-4 col-sm-12" *ngFor="let room of gameService.rooms">
+      <div class="card-body">
+        <h5 class="card-title">{{room.name}}</h5>
+        <button class="btn btn-primary" (click)="connectToRoom(room.id)">Connect</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="alert alert-primary"  *ngIf="!gameService.isConnected">
+  Not connected to game coordinator!
 </div>

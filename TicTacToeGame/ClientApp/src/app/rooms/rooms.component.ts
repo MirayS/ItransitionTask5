@@ -11,6 +11,8 @@ import {Router} from "@angular/router";
 export class RoomsComponent implements OnInit, OnDestroy {
   private moveToRoomSubscribe: Subscription
 
+  public roomName: string = ''
+  public tags: string = ''
 
   constructor(public gameService: SignalRService, private router: Router) { }
 
@@ -27,7 +29,7 @@ export class RoomsComponent implements OnInit, OnDestroy {
   }
 
   createRoom() {
-    this.gameService.createRoom("test")
+    this.gameService.createRoom(this.roomName.trim())
   }
 
   connectToRoom(id: string) {
