@@ -8,6 +8,7 @@ import {RoomDto} from "../dto/signalrDtos";
 export class SignalRService {
   private hubConnection: HubConnection
   public rooms: RoomDto[]
+  public tags: string[]
   public nowInRoom: RoomDto
   public isFirstPlayer: boolean
   public connectionId: string
@@ -46,8 +47,8 @@ export class SignalRService {
       })
   }
 
-  public createRoom(name: string) {
-    this.hubConnection.send("CreateRoom", name);
+  public createRoom(name: string, tags: string[]) {
+    this.hubConnection.send("CreateRoom", name, tags);
   }
 
   public connectToRoom(id: string) {
@@ -87,6 +88,9 @@ export class SignalRService {
       this.nowInRoom = null
       this.isFirstPlayer = null
       this.leaveFromRoomEvent.emit()
+    })
+    this.hubConnection.on("newTags", (tags: string[]) => {
+      this.tags = tags
     })
   }
 }

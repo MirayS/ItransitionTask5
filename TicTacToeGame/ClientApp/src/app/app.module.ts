@@ -12,6 +12,7 @@ import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { RoomsComponent } from './rooms/rooms.component';
 import { GameComponent } from './game/game.component';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {TagInputModule} from "ngx-chips";
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     GameComponent,
   ],
   imports: [
+    TagInputModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

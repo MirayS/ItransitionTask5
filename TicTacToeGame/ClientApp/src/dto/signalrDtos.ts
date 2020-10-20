@@ -8,6 +8,7 @@
   public isFinished: boolean
   public isFirstPlayerWin: boolean
   public isFirstPlayerStep: boolean
+  public tags: string[]
 
   /*
   Id = Guid.NewGuid(),

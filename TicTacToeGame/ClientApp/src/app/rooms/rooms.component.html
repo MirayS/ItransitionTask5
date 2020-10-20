@@ -9,6 +9,10 @@
         </div>
         <div class="form-group">
           <div>
+            <tag-input [(ngModel)]='tags'>
+              <tag-input-dropdown [autocompleteItems]="gameService.tags">
+              </tag-input-dropdown>
+            </tag-input>
           </div>
         </div>
         <button class="btn btn-primary" (click)="createRoom()" [disabled]="!roomName.trim().length">Create</button>
@@ -17,9 +21,21 @@
     </div>
   </div>
   <div class="row">
-    <div class="card col-md-4 col-sm-12" *ngFor="let room of gameService.rooms">
+    <div class="card col-12">
       <div class="card-body">
-        <h5 class="card-title">{{room.name}}</h5>
+        <h5 class="card-title">Filters</h5>
+        <tag-input [(ngModel)]='filters' [onlyFromAutocomplete]="true">
+          <tag-input-dropdown [showDropdownIfEmpty]="true" [autocompleteItems]="gameService.tags">
+          </tag-input-dropdown>
+        </tag-input>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="card col-md-4 col-sm-12" *ngFor="let room of getFilteredRooms()">
+      <div class="card-body">
+        <h5 class="card-title">{{room.name}}<span class="badge badge-primary" *ngFor="let tag of room.tags">{{tag}}</span>
+        </h5>
         <button class="btn btn-primary" (click)="connectToRoom(room.id)">Connect</button>
       </div>
     </div>

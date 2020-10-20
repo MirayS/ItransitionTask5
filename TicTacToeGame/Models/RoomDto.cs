@@ -15,5 +15,6 @@ namespace TicTacToeGame.Models
         public bool? IsFirstPlayerWin { get; set; }
         
         public int[][] PlayingField { get; set; }
+        public List<string> Tags { get; set; }
     }
 }

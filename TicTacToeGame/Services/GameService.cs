@@ -8,13 +8,15 @@ namespace TicTacToeGame.Services
     public class GameService
     {
         public List<RoomDto> Rooms { get; }
+        public SortedSet<string> Tags { get; set; }
 
         public GameService()
         {
             Rooms = new List<RoomDto>();
+            Tags = new SortedSet<string>();
         }
 
-        public RoomDto CreateNewRoom(string roomName, string creatorId)
+        public RoomDto CreateNewRoom(string roomName, List<string> tags, string creatorId)
         {
             var room = new RoomDto()
             {
@@ -27,6 +29,7 @@ namespace TicTacToeGame.Services
                 PlayerTwo = null,
                 PlayingField = new[] {new[] {0, 0, 0}, new[] {0, 0, 0}, new[] {0, 0, 0}},
                 IsFirstPlayerWin = null,
+                Tags = tags
             };
 
             Rooms.Add(room);

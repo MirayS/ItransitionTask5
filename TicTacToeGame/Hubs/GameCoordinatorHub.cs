@@ -24,15 +24,17 @@ namespace TicTacToeGame.Hubs
             _game = game;
         }
 
-        public async Task CreateRoom(string name)
+        public async Task CreateRoom(string name, List<string> tags)
         {
             if (_game.IsUserInGame(Context.ConnectionId))
                 return;
             
-            var room = _game.CreateNewRoom(name, Context.ConnectionId);
+            var room = _game.CreateNewRoom(name, tags, Context.ConnectionId);
+            foreach (var x in tags) _game.Tags.Add(x);
             await Groups.AddToGroupAsync(Context.ConnectionId, room.Id.ToString());
             await Clients.All.SendAsync("newRoom", room);
             await Clients.Caller.SendAsync("moveToRoom", room);
+            await Clients.All.SendAsync("newTags", _game.Tags);
         }
 
         public async Task ConnectToRoom(Guid roomId)
@@ -91,6 +93,8 @@ namespace TicTacToeGame.Hubs
         public override async Task OnConnectedAsync()
         {
             await Clients.Caller.SendAsync("rooms", _game.Rooms.Where(x => x.IsStarted == false));
+            await Clients.Caller.SendAsync("newTags", _game.Tags);
+
             await base.OnConnectedAsync();
         }
 
