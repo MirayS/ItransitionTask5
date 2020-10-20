@@ -7,8 +7,8 @@ import {RoomDto} from "../dto/signalrDtos";
 })
 export class SignalRService {
   private hubConnection: HubConnection
-  public rooms: RoomDto[]
-  public tags: string[]
+  public rooms: RoomDto[] = []
+  public tags: string[] = []
   public nowInRoom: RoomDto
   public isFirstPlayer: boolean
   public connectionId: string
